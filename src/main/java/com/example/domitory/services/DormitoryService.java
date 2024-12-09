@@ -1,6 +1,7 @@
 package com.example.domitory.services;
 
 import com.example.domitory.entity.Dormitory;
+import com.example.domitory.entity.Students;
 import com.example.domitory.repos.DormitoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,26 +9,24 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class DormitoryService {
 
-    @Autowired
-    private DormitoryRepository DormitoryRepository;
+    private final DormitoryRepository repository;
+
+    public DormitoryService(DormitoryRepository repository) {
+        this.repository = repository;
+    }
 
     public List<Dormitory> listAll() {
-        return DormitoryRepository.findAllWithDetails();
+        return repository.findAllWithDetails();
     }
 
-    public Dormitory save(Dormitory dormitory) {
-        return DormitoryRepository.save(dormitory);
-    }
-
-    public void delete(Long id) {
-        DormitoryRepository.deleteById(id);
-    }
-
-    public Dormitory get(Long id) {
-        Optional<Dormitory> optionalDormitory = DormitoryRepository.findById(id);
-        return optionalDormitory.orElse(null); // Возвращаем null, если запись не найдена
+    public List<Dormitory> searchDormitoriesByStudentName(String keyword) {
+        return repository.searchByKeyword(keyword);
     }
 }

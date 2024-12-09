@@ -5,31 +5,41 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "rooms")
+@Table(name = "room")
 public class Rooms {
     @Id
-    private Long id; // Задается вручную, без генерации.
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id; // Auto-generated primary key
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_student", referencedColumnName = "id")
-    @JsonIgnore // Игнорирует это поле при сериализации
-    private Students student;
+    @Column(name = "nub_room")
+    private Integer nubRoom;
+
+    @Column(name = "quantity")
+    private Integer quantity;
 
     public Rooms() {}
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Students getStudent() {
-        return student;
+    public Integer getNubRoom() {
+        return nubRoom;
     }
 
-    public void setStudent(Students student) {
-        this.student = student;
+    public void setNubRoom(Integer nubRoom) {
+        this.nubRoom = nubRoom;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

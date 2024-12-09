@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Список студентов</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(236, 143, 173);
+            align-items: center;
+        }
+
+        .btn {
+            padding: 5px;
+            border-radius: 10px;
+            border: none;
+            background-color: rgb(112, 186, 200);
+            color: rgb(14, 10, 10);
+            margin: 5px 0;
+        }
+
+        .btn:hover {
+            background-color: #d5cc55;
+            color: black;
+            transition-duration: 0.3s;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .search_filters {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .input_field {
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+            text-align: center;
+            table-layout: fixed;
+        }
+
+        thead {
+            border: 2px solid black;
+        }
+
+        table tr th {
+            border-right: 1px solid black;
+            color: black;
+        }
+
+        .btn-warning {
+            margin-left: 0;
+        }
+
+        .logout-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="logout-container">
+    <a href="/logout">
+        <button type="button" class="btn btn-danger">Выйти</button>
+    </a>
+</div>
+<div class="container">
+    <h1>Список студентов</h1>
+    <div class="search_filters">
+        <form th:action="@{/students}">
+            <input
+                    class="input_field"
+                    placeholder="Поиск по имени"
+                    type="text"
+                    name="keyword"
+                    id="keyword"
+                    size="50"
+                    th:value="${keyword}"
+            />
+            <input type="submit" class="btn btn-success" value="Поиск"/>
+            <input type="button" class="btn btn-warning" value="Очистить" onclick="clearSearch()"/>
+        </form>
+    </div>
+    <table class="table" id="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Дата рождения</th>
+            <th>Пол</th>
+            <th>Курс</th>
+            <th>Факультет</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.id}">ID</td>
+            <td th:text="${student.fullName}">ФИО</td>
+            <td th:text="${student.birthDate}">Дата рождения</td>
+            <td th:text="${student.gender}">Пол</td>
+            <td th:text="${student.course}">Курс</td>
+            <td th:text="${student.faculty}">Факультет</td>
+            <td>
+                <form th:action="@{/students/enroll}" method="post">
+                    <input type="hidden" name="studentId" th:value="${student.id}"/>
+                    <button type="submit" class="btn btn-info">Заселить</button>
+
+                    <!-- Всплывающий список с доступными комнатами -->
+                    <select name="roomId" th:if="${availableRooms != null}">
+                        <option th:each="room : ${availableRooms}" th:value="${room.id}" th:text="${room.name}">Комната</option>
+                    </select>
+                </form>
+
+
+                <a th:href="@{'/students/delete/' + ${student.id}}">
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="container">
+        <script type="text/javascript">
+            function getRowsColumn() {
+                let table = document.getElementById("1");
+                let tBody = table.querySelector("tbody");
+                const count = tBody.querySelectorAll("tr").length;
+                document.write("Количество записей в таблице: " + count);
+            }
+
+            getRowsColumn();
+        </script>
+    </div>
+    <a href="/students/new">
+        <button type="button" class="btn btn-primary">Добавить нового студента</button>
+    </a>
+</div>
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "/students";
+    }
+</script>
+</body>
+</html>

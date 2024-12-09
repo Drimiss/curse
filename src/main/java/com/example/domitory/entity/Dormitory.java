@@ -11,11 +11,11 @@ public class Dormitory {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_room", referencedColumnName = "id")
-    private Rooms room;
+    private Rooms room; // Proper join to Rooms table
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_student", referencedColumnName = "id")
-    private Students student;
+    private Students student; // Proper join to Students table
 
     public Dormitory() {}
 

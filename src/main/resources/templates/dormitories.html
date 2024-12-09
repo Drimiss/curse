@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Система общежитий</title>
     <style>
         body {
@@ -56,83 +57,88 @@
         .btn-warning {
             margin-left: 0;
         }
+        .logout-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     </style>
 </head>
 <body>
+<div class="logout-container">
+    <a href="/logout">
+        <button type="button" class="btn btn-danger">Выйти</button>
+    </a>
+</div>
+<div class="students-list">
+    <a href="/students">
+        <button type="button" class="btn btn-danger">Студенты</button>
+    </a>
+</div>
 <div class="container">
     <h1 class="title">Система общежитий</h1>
-    <div class="rows">
-        <div class="search_filters">
-            <form th:action="@{/}">
-                <input
-                        class="input_field"
-                        placeholder="Поиск по ключевым данным"
-                        type="text"
-                        name="keyword"
-                        id="keyword"
-                        size="70"
-                        th:value="${keyword}"
-                        required
-                />
-                <input type="submit" class="btn btn-success" value="Поиск" />
-                <input type="button" class="btn btn-warning" value="Очистить" id="btnClear" onclick="clearSearch()" />
-            </form>
-        </div>
+    <div class="search_filters">
+        <form th:action="@{/dormitories}" method="get">
+            <input
+                    class="input_field"
+                    placeholder="Введите номер комнаты, имя или факультет"
+                    type="text"
+                    name="keyword"
+                    th:value="${keyword}"
+            />
+            <input type="submit" class="btn btn-success" value="Поиск" />
+            <input type="button" class="btn btn-warning" value="Очистить" onclick="clearSearch()" />
+        </form>
     </div>
-    <table class="table" id="1">
+    <table id="dormitory-table">
         <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">ФИО студента</th>
-            <th scope="col">Курс</th>
-            <th scope="col">Дата рождения</th>
-            <th scope="col">Пол</th>
-            <th scope="col">Факультет</th>
-            <th scope="col">Действие:</th>
+            <th>Номер комнаты</th>
+            <th>ФИО студента</th>
+            <th>Курс</th>
+            <th>Дата рождения</th>
+            <th>Пол</th>
+            <th>Факультет</th>
+            <th>Действие</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="dormitory: ${dormitories}">
-            <th scope="row" th:text="${dormitory.room.id}">нет</th>
-            <th scope="row" th:text="${dormitory.student.fullName}">нет</th>
-            <th scope="row" th:text="${dormitory.student.course}">нет</th>
-            <th scope="row" th:text="${dormitory.student.birthDate}">нет</th>
-            <th scope="row" th:text="${dormitory.student.gender}">нет</th>
-            <th scope="row" th:text="${dormitory.student.faculty}">нет</th>
+        <tr th:each="dormitory : ${dormitories}">
+            <td th:text="${dormitory.room.nubRoom}">нет</td>
+            <td th:text="${dormitory.student.fullName}">нет</td>
+            <td th:text="${dormitory.student.course}">нет</td>
+            <td th:text="${dormitory.student.birthDate}">нет</td>
+            <td th:text="${dormitory.student.gender}">нет</td>
+            <td th:text="${dormitory.student.faculty}">нет</td>
             <td>
-                <a th:href="@{'/edit/'+${dormitory.id}}">
+                <a th:href="@{'/edit/' + ${dormitory.id}}">
                     <button type="button" class="btn btn-info">Редактировать</button>
                 </a>
-                <a th:href="@{'/delete/'+${dormitory.id}}">
-                    <button type="button" class="btn btn-danger">Удалить</button>
+                <a th:href="@{'/delete/' + ${dormitory.id}}">
+                    <button type="button" class="btn btn-danger">Выселить</button>
                 </a>
             </td>
         </tr>
         </tbody>
     </table>
+
     <div class="container">
-        <script type="text/javascript">
-            function getRowsColumn() {
-                let table = document.getElementById("1");
-                let tBody = table.querySelector("tbody");
-                const count = tBody.querySelectorAll("tr").length;
-                document.write("Количество записей в таблице: " + count);
-            }
-            getRowsColumn();
-        </script>
+        <p id="row-count"></p>
     </div>
     <blockquote class="blockquote">
         <a href="/new">
-            <button type="button" class="btn btn-primary" data-togge="button" aria-pressed="false" autocomplete="off">
-                Добавить
-            </button>
+            <button type="button" class="btn btn-primary">Добавить</button>
         </a>
     </blockquote>
 </div>
-<script type="text/javascript">
+<script>
     function clearSearch() {
-        window.location = "[[@{/}]]";
+        window.location = "/dormitories";
     }
+    document.addEventListener("DOMContentLoaded", () => {
+        const rowCount = document.querySelector("#dormitory-table tbody").rows.length;
+        document.getElementById("row-count").textContent = `Количество записей в таблице: ${rowCount}`;
+    });
 </script>
 </body>
 </html>
