@@ -1,66 +1,67 @@
 DELIMITER //
 
-CREATE PROCEDURE fill_dormitory()
+CREATE PROCEDURE `fill_dormitory2`()
 BEGIN
-    DECLARE done INT DEFAULT 0;
+    DECLARE finished INT DEFAULT 0;
     DECLARE student_id BIGINT;
     DECLARE student_gender ENUM('male', 'female');
     DECLARE room_id INT;
     DECLARE room_gender ENUM('male', 'female');
-    DECLARE room_count INT;
+    DECLARE room_quantity INT;
     DECLARE current_occupancy INT;
-    DECLARE room_found INT DEFAULT 0;
 
+    -- Курсор для студентов
     DECLARE student_cursor CURSOR FOR
-SELECT id, gender FROM students WHERE id NOT IN (SELECT id_student FROM dormitory);
+SELECT id, gender FROM students ORDER BY id;
 
-DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+-- Курсор для комнат
+DECLARE room_cursor CURSOR FOR
+SELECT id, gender, quantity,
+       (SELECT COUNT(*) FROM dormitory WHERE id_room = room.id) AS current_occupancy
+FROM room ORDER BY id;
 
+-- Обработчик окончания курсора
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished = 1;
+
+    -- Открываем курсор для студентов
 OPEN student_cursor;
 
-read_loop: LOOP
+student_loop: LOOP
         FETCH student_cursor INTO student_id, student_gender;
-        IF done THEN
-            LEAVE read_loop;
+
+        IF finished THEN
+            LEAVE student_loop;
 END IF;
 
-        SET room_id = NULL;
-        SET room_found = 0;
+        -- Открываем курсор для комнат
+        SET finished = 0;
+OPEN room_cursor;
 
-        -- Цикл для поиска подходящей комнаты
-        room_search: LOOP
-SELECT r.id, r.gender, r.quantity,
-       (SELECT COUNT(*) FROM dormitory d WHERE d.id_room = r.id) AS current_occupancy
-INTO room_id, room_gender, room_count, current_occupancy
-FROM room r
-WHERE (r.gender IS NULL OR r.gender = student_gender)  -- Комната пустая или соответствует полу
-  AND current_occupancy < r.quantity
-ORDER BY r.id ASC
-    LIMIT 1;
+room_loop: LOOP
+            FETCH room_cursor INTO room_id, room_gender, room_quantity, current_occupancy;
 
-IF room_id IS NOT NULL THEN
-                -- Если пол комнаты пустой, обновляем его
+            IF finished THEN
+                LEAVE room_loop;
+END IF;
+
+            -- Проверка условий заселения
+            IF (room_gender = student_gender OR room_gender IS NULL) AND current_occupancy < room_quantity THEN
+                -- Обновляем гендер комнаты, если он NULL
                 IF room_gender IS NULL THEN
-UPDATE room r
-SET r.gender = student_gender
-WHERE r.id = room_id;
+UPDATE room SET gender = student_gender WHERE id = room_id;
 END IF;
 
-                -- Заселяем студента в найденную комнату
+                -- Заселение студента
 INSERT INTO dormitory (id_room, id_student) VALUES (room_id, student_id);
-SET room_found = 1;
-                LEAVE read_loop;
+LEAVE room_loop;
 END IF;
+END LOOP;
 
-            -- Если комната не найдена, выходим из поиска и продолжаем с новым студентом
-            IF room_found = 0 THEN
-                LEAVE room_search;
-END IF;
-END LOOP room_search;
+CLOSE room_cursor;
 END LOOP;
 
 CLOSE student_cursor;
-END;
+END
 //
 
 DELIMITER ;
