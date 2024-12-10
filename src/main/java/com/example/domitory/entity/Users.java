@@ -16,6 +16,7 @@ public class Users implements UserDetails {
     private Long id;
     private String username;
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="user_roles",
@@ -23,6 +24,9 @@ public class Users implements UserDetails {
             inverseJoinColumns = @JoinColumn(name="role_id")
     )
     private Set<Roles> roles;
+
+    @Transient // Это поле не будет сохраняться в базе данных
+    private String secret; // Добавлено поле для хранения секретного слова
 
     public Users() {}
 
@@ -37,6 +41,14 @@ public class Users implements UserDetails {
     public Set<Roles> getRoles() { return roles; }
 
     public void setRoles(Set<Roles> roles) { this.roles = roles; }
+
+    public String getSecret() {
+        return secret;  // Метод для получения секретного слова
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;  // Метод для установки секретного слова
+    }
 
     @Override
     public String getUsername() {
@@ -74,6 +86,4 @@ public class Users implements UserDetails {
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .toList();
     }
-
 }
-

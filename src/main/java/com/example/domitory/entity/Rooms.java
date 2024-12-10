@@ -16,6 +16,8 @@ public class Rooms {
 
     @Column(name = "quantity")
     private Integer quantity;
+    @Column(name = "gender", nullable = false)
+    private String gender;
 
     public Rooms() {}
 
@@ -41,5 +43,12 @@ public class Rooms {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

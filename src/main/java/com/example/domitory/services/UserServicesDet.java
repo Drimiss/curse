@@ -1,5 +1,6 @@
 package com.example.domitory.services;
 
+import com.example.domitory.entity.Users;
 import com.example.domitory.repos.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,4 +20,14 @@ public class UserServicesDet implements UserDetailsService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден: " + username));
     }
+    // Метод для сохранения нового пользователя
+    public void saveUser(Users user) {
+        userRepository.save(user);
+    }
+
+    // Метод для проверки, существует ли пользователь с таким именем
+    public boolean userExists(String username) {
+        return userRepository.findByUsername(username).isPresent();
+    }
+
 }

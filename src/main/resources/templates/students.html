@@ -75,13 +75,11 @@
 </head>
 <body>
 <div class="logout-container">
+    <a href="/dormitories">
+        <button type="button" class="btn btn-danger">Обежитие</button>
+    </a>
     <a href="/logout">
         <button type="button" class="btn btn-danger">Выйти</button>
-    </a>
-</div>
-<div class="students-list">
-    <a href="/dormitories">
-        <button type="button" class="btn btn-danger">Студенты</button>
     </a>
 </div>
 <div class="container">
@@ -135,7 +133,18 @@
     <a href="/students/new">
         <button type="button" class="btn btn-primary">Добавить нового студента</button>
     </a>
+    <form action="/students/place" method="post" style="display: inline;">
+        <button type="submit" class="btn btn-danger btn-lg">Заселить всех</button>
+    </form>
 </div>
+<div class="container">
+    <h2>Загрузка JSON-файла</h2>
+    <form action="/students/upload-json" method="post" enctype="multipart/form-data" style="margin-bottom: 20px;">
+        <input type="file" name="file" accept=".json" class="btn">
+        <button type="submit" class="btn btn-primary">Загрузить файл</button>
+    </form>
+</div>
+
 <script type="text/javascript">
     function clearSearch() {
         window.location = "/students";

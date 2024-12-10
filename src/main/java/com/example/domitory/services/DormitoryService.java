@@ -3,6 +3,7 @@ package com.example.domitory.services;
 import com.example.domitory.entity.Dormitory;
 import com.example.domitory.entity.Students;
 import com.example.domitory.repos.DormitoryRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +30,14 @@ public class DormitoryService {
     public List<Dormitory> searchDormitoriesByStudentName(String keyword) {
         return repository.searchByKeyword(keyword);
     }
+    @Transactional
+    public void callPopulateDormitory() {
+        repository.callPopulateDormitory();
+    }
+
+    @Transactional
+    public void removeStudentFromDormitory(Long studentId) {
+        repository.removeStudentFromDormitory(studentId);
+    }
+
 }

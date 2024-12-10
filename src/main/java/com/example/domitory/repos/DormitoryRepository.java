@@ -1,6 +1,7 @@
 package com.example.domitory.repos;
 
 import com.example.domitory.entity.Dormitory;
+import com.example.domitory.entity.Students;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -31,6 +32,11 @@ public interface DormitoryRepository extends JpaRepository<Dormitory, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Dormitory d SET d.student = NULL WHERE d.id = :id")
-    void removeStudentFromDormitory(@Param("id") Long id);
+    @Query("DELETE FROM Dormitory d WHERE d.student.id = :studentId")
+    void removeStudentFromDormitory(@Param("studentId") Long studentId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "CALL fill_dormitory2();", nativeQuery = true)
+    void callPopulateDormitory();
 }

@@ -3,11 +3,11 @@ package com.example.domitory.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-
 @Entity
 @Table(name = "students")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Students {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ public class Students {
     private String fullName;
 
     @Column(name = "b_date", nullable = false)
-    private LocalDate b_date;
+    private String birthDate;
 
     @Column(name = "gender", nullable = false)
     private String gender;
@@ -29,6 +29,8 @@ public class Students {
     private String faculty;
 
     public Students() {}
+
+
 
     public Long getId() {
         return id;
@@ -46,12 +48,12 @@ public class Students {
         this.fullName = fullName;
     }
 
-    public LocalDate getBirthDate() {
-        return b_date;
+    public String getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.b_date = b_date;
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getGender() {

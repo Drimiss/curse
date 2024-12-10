@@ -1,0 +1,6 @@
+
+CREATE TABLE dormitory (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,  -- Уникальный идентификатор записи
+    id_room INT DEFAULT NULL,              -- Идентификатор комнаты, может быть NULL
+    id_student BIGINT DEFAULT NULL
+);

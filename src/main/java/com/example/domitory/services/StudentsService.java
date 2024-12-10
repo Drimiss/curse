@@ -21,6 +21,7 @@ public class StudentsService {
         return repository.findAllStudentsNotInDormitory();
     }
 
-
+    public void saveStudent(String fullName, String birthDate, String gender, String faculty, int course) {
+        repository.saveStudent(fullName, birthDate, gender, faculty, course);
+    }
 }
-

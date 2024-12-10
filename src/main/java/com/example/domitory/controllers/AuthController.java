@@ -5,7 +5,7 @@ import com.example.domitory.entity.Users;
 import com.example.domitory.repos.RoleRepository;
 import com.example.domitory.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -36,30 +35,41 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Value("${app.secret-word}") // Секретное слово из application.properties
+    private String secretWord;
 
-    // Регистрация нового пользователя
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Users user) {
-        // Проверяем, существует ли пользователь с таким именем
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Имя пользователя уже существует");
+
+        // Проверка секретного слова
+        if (!secretWord.equals(user.getSecret())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Неверное секретное слово");
         }
 
+        // Проверка на уникальность имени пользователя
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Имя пользователя уже существует");
+        }
+
+        // Хэширование пароля
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        // Назначение роли "STUDENT" по умолчанию
-        Roles userRole = roleRepository.findByName("STUDENT")
+        // Установка роли
+        Roles userRole = roleRepository.findByName("ADMIN")
                 .orElseThrow(() -> new RuntimeException("Роль STUDENT не найдена"));
-
         Set<Roles> roles = new HashSet<>();
         roles.add(userRole);
         user.setRoles(roles);
 
-        // Сохранение пользователя в базе данных
+        // Сохранение пользователя
         userRepository.save(user);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Регистрация прошла успешно!");
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Регистрация прошла успешно!");
     }
+
 
     @GetMapping("/register")
     public ResponseEntity<String> getRegPage() throws IOException {

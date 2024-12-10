@@ -14,6 +14,7 @@ public class Dormitory {
     private Rooms room; // Proper join to Rooms table
 
     @ManyToOne(fetch = FetchType.LAZY)
+
     @JoinColumn(name = "id_student", referencedColumnName = "id")
     private Students student; // Proper join to Students table
 
