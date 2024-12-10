@@ -117,16 +117,11 @@
             <td th:text="${student.course}">Курс</td>
             <td th:text="${student.faculty}">Факультет</td>
             <td>
-                <form th:action="@{/students/enroll}" method="post">
-                    <input type="hidden" name="studentId" th:value="${student.id}"/>
-                    <button type="submit" class="btn btn-info">Заселить</button>
-
-                    <!-- Всплывающий список с доступными комнатами -->
-                    <select name="roomId" th:if="${availableRooms != null}">
-                        <option th:each="room : ${availableRooms}" th:value="${room.id}" th:text="${room.name}">Комната</option>
-                    </select>
-                </form>
-
+                <!-- Кнопка "Редактировать" отображается только если студента нет в общежитии -->
+                <a th:if="${#lists.contains(studentsNotInDormitory, student)}"
+                   th:href="@{'/students/edit/' + ${student.id}}">
+                    <button type="button" class="btn btn-info">Заселить</button>
+                </a>
 
                 <a th:href="@{'/students/delete/' + ${student.id}}">
                     <button type="button" class="btn btn-danger">Удалить</button>
