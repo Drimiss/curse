@@ -23,5 +23,6 @@ public class StudentsController {
         model.addAttribute("studentsNotInDormitory", studentsNotInDormitory); // Передаем в модель
         return "students";
     }
+
 }
 

@@ -79,23 +79,13 @@
         <button type="button" class="btn btn-danger">Выйти</button>
     </a>
 </div>
+<div class="students-list">
+    <a href="/dormitories">
+        <button type="button" class="btn btn-danger">Студенты</button>
+    </a>
+</div>
 <div class="container">
     <h1>Список студентов</h1>
-    <div class="search_filters">
-        <form th:action="@{/students}">
-            <input
-                    class="input_field"
-                    placeholder="Поиск по имени"
-                    type="text"
-                    name="keyword"
-                    id="keyword"
-                    size="50"
-                    th:value="${keyword}"
-            />
-            <input type="submit" class="btn btn-success" value="Поиск"/>
-            <input type="button" class="btn btn-warning" value="Очистить" onclick="clearSearch()"/>
-        </form>
-    </div>
     <table class="table" id="1">
         <thead>
         <tr>
@@ -119,7 +109,7 @@
             <td>
                 <!-- Кнопка "Редактировать" отображается только если студента нет в общежитии -->
                 <a th:if="${#lists.contains(studentsNotInDormitory, student)}"
-                   th:href="@{'/students/edit/' + ${student.id}}">
+                   th:href="@{'/students/edit_student/' + ${student.id}}">
                     <button type="button" class="btn btn-info">Заселить</button>
                 </a>
 

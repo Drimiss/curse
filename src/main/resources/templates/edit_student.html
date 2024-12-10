@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Редактирование данных</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(236, 143, 173);
+            align-items: center;
+        }
+        .btn {
+            padding: 5px 5px 5px 5px;
+            border-radius: 10px;
+            border: none;
+            background-color: rgb(112, 186, 200);
+            color: rgb(14, 10, 10);
+            margin: 5px 0;
+        }
+
+        .btn:hover {
+            background-color: #d5cc55;
+            color: black;
+            transition-duration: 0.3s;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <blockquote class="blockquote">
+        <h1>Редактирование данных груза</h1>
+    </blockquote>
+    <div class="rows">
+        <div class="content">
+            <form
+                    action="#"
+                    th:action="@{/save}"
+                    th:object="${cargo}"
+                    method="post"
+            >
+                <table>
+                    <tr>
+                        <td>* ID не редактируется</td>
+                    </tr>
+                    <tr>
+                        <td>Название:</td>
+                        <td>
+                            <input
+                                    placeholder="Название"
+                                    type="text"
+                                    th:field="*{name}"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Содержимое:</td>
+                        <td>
+                            <input
+                                    placeholder="Содержимое"
+                                    type="text"
+                                    th:field="*{content}"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Город отправки:</td>
+                        <td>
+                            <input
+                                    placeholder="Город отправки"
+                                    type="text"
+                                    th:field="*{sending_city}"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Дата отправки:</td>
+                        <td>
+                            <input
+                                    placeholder="Дата отправки"
+                                    type="text"
+                                    th:field="*{sending_date}"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Город прибытия:</td>
+                        <td>
+                            <input
+                                    placeholder="Город прибытия"
+                                    type="text"
+                                    th:field="*{arrival_city}"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Дата прибытия:</td>
+                        <td>
+                            <input
+                                    placeholder="Дата прибытия"
+                                    type="text"
+                                    th:field="*{arrival_date}"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button
+                                    type="submit"
+                                    class="btn btn-primary"
+                                    data-toggle="button"
+                                    aria-pressed="false"
+                                    autocomplete="off"
+                            >
+                                Отправить
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
