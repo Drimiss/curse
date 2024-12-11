@@ -9,7 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -61,4 +64,28 @@ public class DormitoryController {
             return "error";
         }
     }
+
+    @GetMapping("/dormitory/{studentId}/availableRooms")
+    public ResponseEntity<List<Map<String, Object>>> getAvailableRooms(@PathVariable Long studentId) {
+        List<Map<String, Object>> availableRooms = service.getAvailableRooms(studentId);
+        return ResponseEntity.ok(availableRooms);
+    }
+
+    @PutMapping("/dormitory/moveStudent")
+    public ResponseEntity<Map<String, String>> moveStudent(@RequestBody Map<String, Object> requestData) {
+        Long studentId = Long.valueOf(requestData.get("studentId").toString());
+        Long roomId = Long.valueOf(requestData.get("roomId").toString());
+        String gender = (String) requestData.get("gender");  // Получаем gender
+
+        // Передаем все параметры в сервис
+        service.moveStudentToNewRoom(studentId, roomId,gender);
+
+        // Возвращаем правильный JSON объект
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Студент успешно перемещен!");
+
+        return ResponseEntity.ok(response);
+    }
+
 }
+

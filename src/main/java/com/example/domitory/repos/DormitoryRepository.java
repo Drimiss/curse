@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface DormitoryRepository extends JpaRepository<Dormitory, Long> {
@@ -18,15 +19,15 @@ public interface DormitoryRepository extends JpaRepository<Dormitory, Long> {
     List<Dormitory> findAllWithDetails();
 
     @Query("""
-    SELECT d FROM Dormitory d 
-    JOIN FETCH d.room r 
-    JOIN FETCH d.student s 
-    WHERE LOWER(s.fullName) LIKE LOWER(CONCAT('%', :keyword, '%')) 
-       OR (LENGTH(:keyword) >= 2 AND CAST(r.nubRoom AS string) LIKE LOWER(CONCAT('%', :keyword, '%')))
-       OR LOWER(s.faculty) LIKE LOWER(CONCAT('%', :keyword, '%'))
-       OR CAST(s.course AS string) LIKE LOWER(CONCAT('%', :keyword, '%'))
-       OR (LOWER(:keyword) IN ('male', 'female') AND LOWER(s.gender) = LOWER(:keyword))
-""")
+                SELECT d FROM Dormitory d 
+                JOIN FETCH d.room r 
+                JOIN FETCH d.student s 
+                WHERE LOWER(s.fullName) LIKE LOWER(CONCAT('%', :keyword, '%')) 
+                   OR (LENGTH(:keyword) >= 2 AND CAST(r.nub_room AS string) LIKE LOWER(CONCAT('%', :keyword, '%')))
+                   OR LOWER(s.faculty) LIKE LOWER(CONCAT('%', :keyword, '%'))
+                   OR CAST(s.course AS string) LIKE LOWER(CONCAT('%', :keyword, '%'))
+                   OR (LOWER(:keyword) IN ('male', 'female') AND LOWER(s.gender) = LOWER(:keyword))
+            """)
     List<Dormitory> searchByKeyword(@Param("keyword") String keyword);
 
 
@@ -39,4 +40,40 @@ public interface DormitoryRepository extends JpaRepository<Dormitory, Long> {
     @Transactional
     @Query(value = "CALL fill_dormitory2();", nativeQuery = true)
     void callPopulateDormitory();
+
+    @Query(value = """
+            SELECT r.id, r.nub_room
+            FROM room r
+            LEFT JOIN dormitory d ON r.id = d.id_room
+            LEFT JOIN students s ON s.id = d.id_student
+            WHERE r.gender IS NULL 
+              OR (s.gender = r.gender AND s.id != :studentId 
+              AND (SELECT COUNT(*) FROM dormitory d2 WHERE d2.id_room = r.id) = 0)
+            """, nativeQuery = true)
+    List<Map<String, Object>> findAvailableRooms(@Param("studentId") Long studentId);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Dormitory d WHERE d.student.id = :studentId")
+    void deleteByStudentId(@Param("studentId") Long studentId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO dormitory (id_room, id_student) VALUES (:roomId, :studentId)", nativeQuery = true)
+    void insertNewRoomAssignment(@Param("roomId") Long roomId, @Param("studentId") Long studentId);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Rooms r SET r.gender = :gender WHERE r.id = :roomId")
+    void updateRoomGender(@Param("gender") String gender, @Param("roomId") Long roomId);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Rooms r SET r.gender = NULL WHERE r.id NOT IN (" +
+            "SELECT d.room.id FROM Dormitory d GROUP BY d.room.id HAVING COUNT(d) > 0)")
+    void need();
+
+
 }
+
+

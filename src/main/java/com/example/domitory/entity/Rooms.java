@@ -12,7 +12,7 @@ public class Rooms {
     private Integer id; // Auto-generated primary key
 
     @Column(name = "nub_room")
-    private Integer nubRoom;
+    private Integer nub_room;
 
     @Column(name = "quantity")
     private Integer quantity;
@@ -30,11 +30,11 @@ public class Rooms {
     }
 
     public Integer getNubRoom() {
-        return nubRoom;
+        return nub_room;
     }
 
     public void setNubRoom(Integer nubRoom) {
-        this.nubRoom = nubRoom;
+        this.nub_room = nubRoom;
     }
 
     public Integer getQuantity() {
