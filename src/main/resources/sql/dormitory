@@ -1,6 +1,56 @@
-
-CREATE TABLE dormitory (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,  -- Уникальный идентификатор записи
-    id_room INT DEFAULT NULL,              -- Идентификатор комнаты, может быть NULL
+CREATE TABLE dormitory
+(
+    id         BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id_room    INT    DEFAULT NULL,
     id_student BIGINT DEFAULT NULL
-);
+)engine = InnoDB default charset = UTF8;
+
+
+CREATE TABLE roles
+(
+    id   BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name varchar(50) NOT NULL
+
+)engine = InnoDB default charset = UTF8;
+
+
+CREATE TABLE room
+(
+    id       INT AUTO_INCREMENT PRIMARY KEY,
+    nub_room INT,
+    quantity INT,
+    gender   enum('male','female') NULL
+)engine = InnoDB default charset = UTF8;
+
+CREATE TABLE students
+(
+    id        BIGINT AUTO_INCREMENT PRIMARY KEY,
+    full_name varchar(255),
+    b_date    date,
+    gender    enum('male','female'),
+    course    int,
+    faculty   varchar(100)
+)engine = InnoDB default charset = UTF8;
+
+CREATE TABLE users
+(
+    id       BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username varchar(50),
+    password varchar(255)
+)engine = InnoDB default charset = UTF8;
+
+CREATE TABLE user_roles
+(
+    role_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES roles (id),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id)
+)engine = InnoDB default charset = UTF8;
+
+
+-- drop table dormitory;
+-- drop table room;
+-- drop table students;
+-- drop table user_roles;
+-- drop table users;
+-- drop table roles;

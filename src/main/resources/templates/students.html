@@ -87,7 +87,6 @@
     <table class="table" id="1">
         <thead>
         <tr>
-            <th>ID</th>
             <th>ФИО</th>
             <th>Дата рождения</th>
             <th>Пол</th>
@@ -98,7 +97,6 @@
         </thead>
         <tbody>
         <tr th:each="student : ${students}">
-            <td th:text="${student.id}">ID</td>
             <td th:text="${student.fullName}">ФИО</td>
             <td th:text="${student.birthDate}">Дата рождения</td>
             <td th:text="${student.gender}">Пол</td>

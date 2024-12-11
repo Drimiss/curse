@@ -23,5 +23,10 @@ public interface StudentsRepository extends JpaRepository<Students, Long> {
     @Query(value = "INSERT INTO students (full_name, b_date, gender, faculty, course) VALUES (:fullName, :birthDate, :gender, :faculty, :course)", nativeQuery = true)
     void saveStudent(String fullName, String birthDate, String gender, String faculty, Integer course);
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Students s WHERE s.id = :id")
+    void deleteStudentById(Long id);
+
 }
 

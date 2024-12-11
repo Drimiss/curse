@@ -1,0 +1,394 @@
+[
+  {
+    "fullName": "Иванов Иван Иванович",
+    "birthDate": "2001-04-15",
+    "gender": "male",
+    "faculty": "ИТ",
+    "course": 2
+  },
+  {
+    "fullName": "Петрова Мария Сергеевна",
+    "birthDate": "2000-12-03",
+    "gender": "female",
+    "faculty": "ИИ",
+    "course": 3
+  },
+  {
+    "fullName": "Смирнов Алексей Дмитриевич",
+    "birthDate": "2002-06-21",
+    "gender": "male",
+    "faculty": "БИ",
+    "course": 1
+  },
+  {
+    "fullName": "Кузнецова Анна Владимировна",
+    "birthDate": "2001-08-19",
+    "gender": "female",
+    "faculty": "ИБ",
+    "course": 2
+  },
+  {
+    "fullName": "Васильев Михаил Олегович",
+    "birthDate": "1999-03-15",
+    "gender": "male",
+    "faculty": "МАД",
+    "course": 4
+  },
+  {
+    "fullName": "Морозова Екатерина Алексеевна",
+    "birthDate": "2002-11-11",
+    "gender": "female",
+    "faculty": "ПИ",
+    "course": 1
+  },
+  {
+    "fullName": "Николаев Андрей Петрович",
+    "birthDate": "2000-02-28",
+    "gender": "male",
+    "faculty": "ИТ",
+    "course": 3
+  },
+  {
+    "fullName": "Федорова Ольга Николаевна",
+    "birthDate": "2001-07-07",
+    "gender": "female",
+    "faculty": "ИИ",
+    "course": 2
+  },
+  {
+    "fullName": "Соколов Игорь Евгеньевич",
+    "birthDate": "2003-01-12",
+    "gender": "male",
+    "faculty": "БИ",
+    "course": 1
+  },
+  {
+    "fullName": "Попова Алина Павловна",
+    "birthDate": "2000-09-23",
+    "gender": "female",
+    "faculty": "ИБ",
+    "course": 4
+  },
+  {
+    "fullName": "Воронов Денис Максимович",
+    "birthDate": "2001-05-15",
+    "gender": "male",
+    "faculty": "МАД",
+    "course": 2
+  },
+  {
+    "fullName": "Григорьева Наталья Юрьевна",
+    "birthDate": "2002-10-30",
+    "gender": "female",
+    "faculty": "ПИ",
+    "course": 1
+  },
+  {
+    "fullName": "Лебедев Павел Андреевич",
+    "birthDate": "2000-04-04",
+    "gender": "male",
+    "faculty": "ИТ",
+    "course": 3
+  },
+  {
+    "fullName": "Егорова Ирина Степановна",
+    "birthDate": "2001-08-25",
+    "gender": "female",
+    "faculty": "ИИ",
+    "course": 2
+  },
+  {
+    "fullName": "Зайцев Артём Викторович",
+    "birthDate": "2003-02-13",
+    "gender": "male",
+    "faculty": "БИ",
+    "course": 1
+  },
+  {
+    "fullName": "Козлова Дарья Романовна",
+    "birthDate": "2000-12-15",
+    "gender": "female",
+    "faculty": "ИБ",
+    "course": 4
+  },
+  {
+    "fullName": "Тихонов Владимир Александрович",
+    "birthDate": "2001-03-20",
+    "gender": "male",
+    "faculty": "МАД",
+    "course": 2
+  },
+  {
+    "fullName": "Климова Софья Дмитриевна",
+    "birthDate": "2002-07-27",
+    "gender": "female",
+    "faculty": "ПИ",
+    "course": 1
+  },
+  {
+    "fullName": "Орлов Артемий Васильевич",
+    "birthDate": "2000-11-09",
+    "gender": "male",
+    "faculty": "ИТ",
+    "course": 3
+  },
+  {
+    "fullName": "Ильина Алёна Сергеевна",
+    "birthDate": "2001-06-16",
+    "gender": "female",
+    "faculty": "ИИ",
+    "course": 2
+  },
+  {
+    "fullName": "Макаров Константин Юрьевич",
+    "birthDate": "2002-03-05",
+    "gender": "male",
+    "faculty": "БИ",
+    "course": 1
+  },
+  {
+    "fullName": "Андреева Полина Ивановна",
+    "birthDate": "1999-08-22",
+    "gender": "female",
+    "faculty": "ИБ",
+    "course": 4
+  },
+  {
+    "fullName": "Романов Евгений Николаевич",
+    "birthDate": "2001-01-17",
+    "gender": "male",
+    "faculty": "МАД",
+    "course": 2
+  },
+  {
+    "fullName": "Гаврилова Виктория Анатольевна",
+    "birthDate": "2003-04-29",
+    "gender": "female",
+    "faculty": "ПИ",
+    "course": 1
+  },
+  {
+    "fullName": "Медведев Владислав Петрович",
+    "birthDate": "2000-10-08",
+    "gender": "male",
+    "faculty": "ИТ",
+    "course": 3
+  },
+  {
+    "fullName": "Кузьмина Антонина Аркадьевна",
+    "birthDate": "2001-09-14",
+    "gender": "female",
+    "faculty": "ИИ",
+    "course": 2
+  },
+  {
+    "fullName": "Лазарев Степан Валентинович",
+    "birthDate": "2002-02-19",
+    "gender": "male",
+    "faculty": "БИ",
+    "course": 1
+  },
+  {
+    "fullName": "Семенова Ольга Андреевна",
+    "birthDate": "2000-07-13",
+    "gender": "female",
+    "faculty": "ИБ",
+    "course": 4
+  },
+  {
+    "fullName": "Матвеев Георгий Витальевич",
+    "birthDate": "2001-05-24",
+    "gender": "male",
+    "faculty": "МАД",
+    "course": 2
+  },
+  {
+    "fullName": "Фролова Екатерина Константиновна",
+    "birthDate": "2003-06-02",
+    "gender": "female",
+    "faculty": "ПИ",
+    "course": 1
+  },
+  {
+    "fullName": "Тарасов Сергей Николаевич",
+    "birthDate": "1999-04-01",
+    "gender": "male",
+    "faculty": "ИТ",
+    "course": 4
+  },
+  {
+    "fullName": "Борисова Валерия Павловна",
+    "birthDate": "2001-08-18",
+    "gender": "female",
+    "faculty": "ИИ",
+    "course": 2
+  },
+  {
+    "fullName": "Михайлов Аркадий Станиславович",
+    "birthDate": "2002-12-07",
+    "gender": "male",
+    "faculty": "БИ",
+    "course": 1
+  },
+  {
+    "fullName": "Алексеева Виктория Александровна",
+    "birthDate": "2000-05-19",
+    "gender": "female",
+    "faculty": "ИБ",
+    "course": 3
+  },
+  {
+    "fullName": "Рыбаков Алексей Юрьевич",
+    "birthDate": "2001-03-11",
+    "gender": "male",
+    "faculty": "МАД",
+    "course": 2
+  },
+  {
+    "fullName": "Данилова Алина Игоревна",
+    "birthDate": "2003-07-03",
+    "gender": "female",
+    "faculty": "ПИ",
+    "course": 1
+  },
+  {
+    "fullName": "Жуков Никита Павлович",
+    "birthDate": "2000-11-05",
+    "gender": "male",
+    "faculty": "ИТ",
+    "course": 3
+  },
+  {
+    "fullName": "Киселёва Татьяна Сергеевна",
+    "birthDate": "2001-06-20",
+    "gender": "female",
+    "faculty": "ИИ",
+    "course": 2
+  },
+  {
+    "fullName": "Сидоров Виктор Андреевич",
+    "birthDate": "2002-01-01",
+    "gender": "male",
+    "faculty": "БИ",
+    "course": 1
+  },
+  {
+    "fullName": "Павлова Оксана Петровна",
+    "birthDate": "2000-03-03",
+    "gender": "female",
+    "faculty": "ИБ",
+    "course": 3
+  },
+  {
+    "fullName": "Громов Иван Николаевич",
+    "birthDate": "1999-09-12",
+    "gender": "male",
+    "faculty": "МАД",
+    "course": 4
+  },
+  {
+    "fullName": "Сафонова Вероника Валерьевна",
+    "birthDate": "2003-04-04",
+    "gender": "female",
+    "faculty": "ПИ",
+    "course": 1
+  },
+  {
+    "fullName": "Емельянов Александр Степанович",
+    "birthDate": "2001-05-15",
+    "gender": "male",
+    "faculty": "ИТ",
+    "course": 2
+  },
+  {
+    "fullName": "Малышева Елизавета Дмитриевна",
+    "birthDate": "2002-06-20",
+    "gender": "female",
+    "faculty": "ИИ",
+    "course": 1
+  },
+  {
+    "fullName": "Крылов Артём Олегович",
+    "birthDate": "2000-02-24",
+    "gender": "male",
+    "faculty": "БИ",
+    "course": 3
+  },
+  {
+    "fullName": "Назарова Татьяна Александровна",
+    "birthDate": "1999-08-18",
+    "gender": "female",
+    "faculty": "ИБ",
+    "course": 4
+  },
+  {
+    "fullName": "Сергеев Константин Анатольевич",
+    "birthDate": "2001-09-05",
+    "gender": "male",
+    "faculty": "МАД",
+    "course": 2
+  },
+  {
+    "fullName": "Котова Виктория Борисовна",
+    "birthDate": "2003-03-27",
+    "gender": "female",
+    "faculty": "ПИ",
+    "course": 1
+  },
+  {
+    "fullName": "Трофимов Николай Георгиевич",
+    "birthDate": "2000-11-14",
+    "gender": "male",
+    "faculty": "ИТ",
+    "course": 3
+  },
+  {
+    "fullName": "Шестакова Марина Юрьевна",
+    "birthDate": "2001-04-28",
+    "gender": "female",
+    "faculty": "ИИ",
+    "course": 2
+  },
+  {
+    "fullName": "Прохоров Максим Григорьевич",
+    "birthDate": "2002-12-30",
+    "gender": "male",
+    "faculty": "БИ",
+    "course": 1
+  },
+  {
+    "fullName": "Мартынова Ольга Викторовна",
+    "birthDate": "2000-07-07",
+    "gender": "female",
+    "faculty": "ИБ",
+    "course": 4
+  },
+  {
+    "fullName": "Суханов Арсений Павлович",
+    "birthDate": "1999-10-10",
+    "gender": "male",
+    "faculty": "МАД",
+    "course": 4
+  },
+  {
+    "fullName": "Чистякова Анна Романовна",
+    "birthDate": "2003-11-23",
+    "gender": "female",
+    "faculty": "ПИ",
+    "course": 1
+  },
+  {
+    "fullName": "Фомин Артём Евгеньевич",
+    "birthDate": "2000-02-13",
+    "gender": "male",
+    "faculty": "ИТ",
+    "course": 3
+  },
+  {
+    "fullName": "Гордеева Анастасия Николаевна",
+    "birthDate": "2001-07-22",
+    "gender": "female",
+    "faculty": "ИИ",
+    "course": 2
+  }
+]
