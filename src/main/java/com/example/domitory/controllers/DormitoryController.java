@@ -64,7 +64,10 @@ public class DormitoryController {
             return "error";
         }
     }
-
+    @RequestMapping("/about")
+    public String about() {
+        return "about";
+    }
     @GetMapping("/dormitory/{studentId}/availableRooms")
     public ResponseEntity<List<Map<String, Object>>> getAvailableRooms(@PathVariable Long studentId) {
         List<Map<String, Object>> availableRooms = service.getAvailableRooms(studentId);

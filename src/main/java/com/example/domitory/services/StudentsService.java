@@ -27,5 +27,6 @@ public class StudentsService {
 
     public void deleteStudent(Long id) {
         repository.deleteStudentById(id);
+
     }
 }

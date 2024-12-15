@@ -48,9 +48,9 @@ CREATE TABLE user_roles
 )engine = InnoDB default charset = UTF8;
 
 
--- drop table dormitory;
--- drop table room;
--- drop table students;
--- drop table user_roles;
--- drop table users;
--- drop table roles;
+drop table dormitory;
+drop table room;
+drop table students;
+drop table user_roles;
+drop table users;
+drop table roles;

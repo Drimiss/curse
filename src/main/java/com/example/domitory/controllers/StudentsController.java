@@ -25,9 +25,9 @@ public class StudentsController {
     @GetMapping("/students")
     public String viewStudents(Model model) {
         List<Students> students = service.listAllSt(); // Все студенты
-        List<Students> studentsNotInDormitory = service.getStudentsNotInDormitory(); // Студенты, которых нет в общежитии
+//        List<Students> studentsNotInDormitory = service.getStudentsNotInDormitory(); // Студенты, которых нет в общежитии
         model.addAttribute("students", students);
-        model.addAttribute("studentsNotInDormitory", studentsNotInDormitory); // Передаем в модель
+//        model.addAttribute("studentsNotInDormitory", studentsNotInDormitory); // Передаем в модель
         return "students";
     }
 
