@@ -25,6 +25,10 @@ public class DormitoryController {
         this.service = service;
     }
 
+
+    @Autowired
+    private DormitoryRepository dormitoryRepository;
+
     @GetMapping("/dormitories")
     public String viewDormitories(
             @RequestParam(value = "keyword", required = false) String keyword,
@@ -44,15 +48,13 @@ public class DormitoryController {
         return "dormitories";
     }
 
-    @Autowired
-    private DormitoryRepository dormitoryRepository;
 
-    @GetMapping("/delete/{id}")
+
+    @GetMapping("/dormitories/move/{id}")
     public String removeStudentFromDormitory(@PathVariable Long id) {
-        // Удалите запись из базы данных по переданному id
         dormitoryRepository.deleteById(id);
-        // Перенаправьте пользователя на страницу с обновленным списком общежитий
-        return "redirect:/dormitories";
+        dormitoryRepository.resetRoomGenderForEmptyRooms();
+        return "dormitories";
     }
 
     @PostMapping("/students/place")

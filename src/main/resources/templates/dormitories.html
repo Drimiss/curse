@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <title>Система общежитий</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -16,11 +15,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        .logout-container {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
         .btn {
             padding: 5px 5px 5px 5px;
             border-radius: 10px;
@@ -46,7 +40,7 @@
 
         .search_filters {
             margin-top: 20px;
-            width:89%;
+            width: 89%;
             margin-bottom: 20px;
             justify-content: center;
         }
@@ -76,6 +70,7 @@
             text-align: center;
             table-layout: fixed;
         }
+
         .sortable-table {
             width: 89%;
             border: none;
@@ -83,6 +78,7 @@
             font-size: 0.9vw;
 
         }
+
         .sortable-table thead th {
             font-weight: bold;
             text-align: center;
@@ -91,12 +87,15 @@
             background: #eeeeee;
             font-size: 14px;
         }
+
         .sortable-table thead tr th:first-child {
             border-radius: 8px 0 0 8px;
         }
+
         .sortable-table thead tr th:last-child {
             border-radius: 0 8px 8px 0;
         }
+
         .sortable-table tbody td {
             text-align: center;
             border: none;
@@ -104,12 +103,15 @@
             font-size: 14px;
             vertical-align: middle;
         }
-        .sortable-table tbody tr:nth-child(even){
+
+        .sortable-table tbody tr:nth-child(even) {
             background: #f3f3f3;
         }
+
         .sortable-table tbody tr td:first-child {
             border-radius: 8px 0 0 8px;
         }
+
         .sortable-table tbody tr td:last-child {
             border-radius: 0 8px 8px 0;
         }
@@ -117,6 +119,7 @@
         .btn-warning {
             margin-left: 0;
         }
+
         header {
             background-color: #333;
             color: white;
@@ -125,6 +128,7 @@
             justify-content: space-between;
             align-items: center;
         }
+
         nav ul {
             list-style: none;
             margin: 0;
@@ -135,6 +139,7 @@
         nav ul li {
             margin: 0 10px;
         }
+
         .custom-btn-danger {
             text-decoration: none;
             padding: 5px 10px;
@@ -144,23 +149,26 @@
             color: rgb(255, 255, 255);
             margin: 5px 0;
         }
+
         .custom-btn-danger:hover {
             background-color: #d5cc55;
             border-radius: 10px;
             transition-duration: 0.3s;
         }
 
-        .search_field{
-            width:91.25%;
+        .search_field {
+            width: 91.25%;
         }
 
 
         .sortable-table th {
             cursor: pointer;
         }
+
         .sortable-table th.no-sort {
             pointer-events: none;
         }
+
         .sortable-table th::before {
             transition: color 0.2s ease-in-out;
             font-size: 1.2em;
@@ -170,14 +178,25 @@
         .sortable-table th:hover::after {
             color: inherit;
         }
+
         .sortable-table th.dir-d::after {
             color: inherit;
             content: '\025BE';
         }
+
         .sortable-table th.dir-u::after {
             color: inherit;
             content: '\025B4';
         }
+
+        .modal-footer button {
+            margin-right: 10px;
+        }
+
+        .modal-footer button:last-child {
+            margin-right: 0;
+        }
+
 
     </style>
 
@@ -188,6 +207,7 @@
                     return element.nodeName === tag ? element :
                         findElementRecursive(element.parentNode, tag)
                 }
+
                 var descending_th_class = ' dir-d '
                 var ascending_th_class = ' dir-u '
                 var ascending_table_sort_class = 'asc'
@@ -197,15 +217,18 @@
                 var element = findElementRecursive(e.target, 'TH')
                 var tr = findElementRecursive(element, 'TR')
                 var table = findElementRecursive(tr, 'TABLE')
+
                 function reClassify(element, dir) {
                     element.className = element.className.replace(regex_dir, '') + dir
                 }
+
                 function getValue(element) {
                     return (
                         (alt_sort && element.getAttribute('data-sort-alt')) ||
                         element.getAttribute('data-sort') || element.innerText
                     )
                 }
+
                 if (regex_table.test(table.className)) {
                     var column_index
                     var nodes = tr.cells
@@ -270,186 +293,200 @@
     </nav>
 </header>
 
-    <div class="container">
-            <div class="search_filters">
-                <form class="search-wit-btn" th:action="@{/dormitories}" method="get">
-                    <input class="search_field" placeholder="Введите информацию" type="text" name="keyword"
-                        th:value="${keyword}">
-                    <input type="submit" class="btn btn-success" value="Поиск">
-                    <input type="button" class="btn btn-warning" value="Очистить" onclick="clearSearch()">
-                </form>
-            </div>
-            <table class="sortable-table" id="1">
-                <thead>
-                    <tr>
-                        <th scope="col">Номер комнаты</th>
-                        <th scope="col">ФИО студента</th>
-                        <th scope="col">Курс</th>
-                        <th scope="col">Дата рождения</th>
-                        <th scope="col">Пол</th>
-                        <th scope="col">Факультет</th>
-                        <th scope="col">Действие</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="dormitory : ${dormitories}">
-                        <td th:text="${dormitory.room.nubRoom}">нет</td>
-                        <td th:text="${dormitory.student.fullName}">нет</td>
-                        <td th:text="${dormitory.student.course}">нет</td>
-                        <td th:text="${dormitory.student.birthDate}">нет</td>
-                        <td th:text="${dormitory.student.gender}">нет</td>
-                        <td th:text="${dormitory.student.faculty}">нет</td>
-                        <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                data-bs-target="#roomModal"
-                                th:attr="data-def-id=${dormitory.student.id}, data-def-gender=${dormitory.student.gender}"
-                                onclick="loadAvailableRooms(this)">
-                                переселить
-                            </button>
-                            <a th:href="@{'/delete/' + ${dormitory.id}}">
-                                <button type="button" class="btn btn-danger">Выселить</button>
-                            </a>
-                        </td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-            <!-- Modal для выбора комнаты -->
-            <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="roomModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="roomModalLabel">Выберите комнату</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <select id="roomSelect" class="form-select">
-                                <!-- Список комнат будет загружаться сюда -->
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                            <button type="button" class="btn btn-primary"
-                                onclick="saveRoomSelection()">Сохранить</button>
-                        </div>
-                    </div>
+<div class="container">
+    <div class="search_filters">
+        <form class="search-wit-btn" th:action="@{/dormitories}" method="get">
+            <input class="search_field" placeholder="Введите информацию" type="text" name="keyword"
+                   th:value="${keyword}">
+            <input type="submit" class="btn btn-success" value="Поиск">
+            <input type="button" class="btn btn-warning" value="Очистить" onclick="clearSearch()">
+        </form>
+    </div>
+    <table class="sortable-table" id="1">
+        <thead>
+        <tr>
+            <th scope="col">Номер комнаты</th>
+            <th scope="col">ФИО студента</th>
+            <th scope="col">Курс</th>
+            <th scope="col">Дата рождения</th>
+            <th scope="col">Пол</th>
+            <th scope="col">Факультет</th>
+            <th scope="col">Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dormitory : ${dormitories}">
+            <td th:text="${dormitory.room.nubRoom}">нет</td>
+            <td th:text="${dormitory.student.fullName}">нет</td>
+            <td th:text="${dormitory.student.course}">нет</td>
+            <td th:text="${dormitory.student.birthDate}">нет</td>
+            <td th:text="${dormitory.student.gender}">нет</td>
+            <td th:text="${dormitory.student.faculty}">нет</td>
+            <td>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        data-bs-target="#roomModal"
+                        th:attr="data-def-id=${dormitory.student.id}, data-def-gender=${dormitory.student.gender}"
+                        onclick="loadAvailableRooms(this)">Переселить
+                </button>
+                <button type="button" class="btn btn-danger" th:attr="data-def-id=${dormitory.id}"
+                        onclick="removeStudent(this)">Выселить
+                </button>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <!-- Modal для выбора комнаты -->
+    <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="roomModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="roomModalLabel">Выберите комнату</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
+                <div class="modal-body">
+                    <select id="roomSelect" class="form-select">
 
-            <div class="container">
-                <script type="text/javascript">
-                    function getRowsColumn() {
-                        let table = document.getElementById("1");
-                        let tBody = table.querySelector("tbody");
-                        const count = tBody.querySelectorAll("tr").length;
-                        document.write("Количество записей в таблице: " + count);
-                    }
-
-                    getRowsColumn();
-                </script>
+                    </select>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary"
+                                onclick="saveRoomSelection()">Сохранить
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
             </div>
         </div>
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            // Очищение поиска
-            function clearSearch() {
-                window.location = "/dormitories";
+    <div class="container">
+        <script type="text/javascript">
+            function getRowsColumn() {
+                let table = document.getElementById("1");
+                let tBody = table.querySelector("tbody");
+                const count = tBody.querySelectorAll("tr").length;
+                document.write("Количество записей в таблице: " + count);
             }
 
-            function loadAvailableRooms(button) {
-                var studentId = button.dataset.defId;
-                var defGender = button.dataset.defGender;
-
-                // Set data to modal
-                const roomSelect = document.getElementById("roomSelect");
-                roomSelect.dataset.studentId = studentId;   // Store studentId
-                roomSelect.dataset.defGender = defGender;   // Store gender
-
-                // Выводим данные для проверки
-                console.log('Def ID:', studentId);
-                console.log('Def Gender:', defGender);
-
-                // Здесь можно выполнить дальнейшие действия с данными
-                // Например, загрузить доступные комнаты на основе этих данных
-
-                // Выводим данные для проверки
-
-                fetch(`/dormitory/${studentId}/availableRooms`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Ошибка HTTP: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(rooms => {
-                        console.log(rooms);  // Вывод данных
-                        const roomSelect = document.getElementById("roomSelect");
-                        roomSelect.innerHTML = ''; // Очистка списка
-
-                        rooms.forEach(room => {
-                            console.log(room); // Это поможет проверить, что именно приходит на каждой итерации
-                            const option = document.createElement("option");
-                            option.value = room.id;
-                            option.textContent = `Комната ${room.nub_room}`;
-                            roomSelect.appendChild(option);
-                        });
-
-
-                    })
-                    .catch(error => console.error("Ошибка при загрузке комнат:", error));
-            }
-
-
-            // Сохранение комнаты
-            function saveRoomSelection() {
-                const roomId = document.getElementById("roomSelect").value; // Получаем значение из выпадающего списка
-                const studentId = document.getElementById("roomSelect").dataset.studentId;  // Получаем studentId
-                const defGender = document.getElementById("roomSelect").dataset.defGender;  // Получаем gender
-
-                if (roomId && studentId && defGender) {
-                    fetch(`/dormitory/moveStudent`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ roomId: roomId, studentId: studentId, gender: defGender })  // Передаем правильные данные
-                    })
-                        .then(response => {
-                            if (response.ok) {
-                                return response.json();  // Ожидаем JSON-ответ от сервера
-                            }
-                            throw new Error('Ошибка на сервере: ' + response.statusText);  // Обработка ошибок
-                        })
-                        .then(data => {
-                            if (data && data.message) {
-                                alert(data.message);  // Показываем сообщение из ответа
-                                window.location.reload();  // Перезагружаем страницу
-                            } else {
-                                console.error('Неверный формат ответа:', data);
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Ошибка при изменении комнаты:", error);
-                            alert("Произошла ошибка при изменении комнаты. Попробуйте снова.");
-                        });
-                } else {
-                    alert("Выберите комнату.");
-                }
-            }
-
-            // Дополнительный код для обработки изменения количества записей
-            document.addEventListener("DOMContentLoaded", () => {
-                const rowCount = document.querySelector("#dormitory-table tbody").rows.length;
-                document.getElementById("row-count").textContent = `Количество записей в таблице: ${rowCount}`;
-            });
-
-
-            document.addEventListener("DOMContentLoaded", () => {
-                const rowCount = document.querySelector("#dormitory-table tbody").rows.length;
-                document.getElementById("row-count").textContent = `Количество записей в таблице: ${rowCount}`;
-            });
+            getRowsColumn();
         </script>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Очищение поиска
+    function clearSearch() {
+        window.location = "/dormitories";
+    }
+
+    function loadAvailableRooms(button) {
+        var studentId = button.dataset.defId;
+        var defGender = button.dataset.defGender;
+
+        // Set data to modal
+        const roomSelect = document.getElementById("roomSelect");
+        roomSelect.dataset.studentId = studentId;   // Store studentId
+        roomSelect.dataset.defGender = defGender;   // Store gender
+
+        // Выводим данные для проверки
+        console.log('Def ID:', studentId);
+        console.log('Def Gender:', defGender);
+
+        // Здесь можно выполнить дальнейшие действия с данными
+        // Например, загрузить доступные комнаты на основе этих данных
+
+        // Выводим данные для проверки
+
+        fetch(`/dormitory/${studentId}/availableRooms`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Ошибка HTTP: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(rooms => {
+                console.log(rooms);  // Вывод данных
+                const roomSelect = document.getElementById("roomSelect");
+                roomSelect.innerHTML = ''; // Очистка списка
+
+                rooms.forEach(room => {
+                    console.log(room); // Это поможет проверить, что именно приходит на каждой итерации
+                    const option = document.createElement("option");
+                    option.value = room.id;
+                    option.textContent = `Комната ${room.nub_room}`;
+                    roomSelect.appendChild(option);
+                });
+
+
+            })
+            .catch(error => console.error("Ошибка при загрузке комнат:", error));
+    }
+
+    function removeStudent(button) {
+        const id = button.getAttribute('data-def-id');
+
+        fetch(`/dormitories/move/${id}`, {method: 'GET'})
+            .then(response => {
+                if (response.ok) {
+                    // Обновите таблицу или перезагрузите содержимое страницы
+                    location.reload(); // Перезагрузка страницы
+                } else {
+                    alert('Ошибка при выселении студента!');
+                }
+            })
+            .catch(error => console.error('Ошибка:', error));
+    }
+
+    // Сохранение комнаты
+    function saveRoomSelection() {
+        const roomId = document.getElementById("roomSelect").value; // Получаем значение из выпадающего списка
+        const studentId = document.getElementById("roomSelect").dataset.studentId;  // Получаем studentId
+        const defGender = document.getElementById("roomSelect").dataset.defGender;  // Получаем gender
+
+        if (roomId && studentId && defGender) {
+            fetch(`/dormitory/moveStudent`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({roomId: roomId, studentId: studentId, gender: defGender})  // Передаем правильные данные
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();  // Ожидаем JSON-ответ от сервера
+                    }
+                    throw new Error('Ошибка на сервере: ' + response.statusText);  // Обработка ошибок
+                })
+                .then(data => {
+                    if (data && data.message) {
+                        alert(data.message);  // Показываем сообщение из ответа
+                        window.location.reload();  // Перезагружаем страницу
+                    } else {
+                        console.error('Неверный формат ответа:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Ошибка при изменении комнаты:", error);
+                    alert("Произошла ошибка при изменении комнаты. Попробуйте снова.");
+                });
+        } else {
+            alert("Выберите комнату.");
+        }
+    }
+
+    // Дополнительный код для обработки изменения количества записей
+    document.addEventListener("DOMContentLoaded", () => {
+        const rowCount = document.querySelector("#dormitory-table tbody").rows.length;
+        document.getElementById("row-count").textContent = `Количество записей в таблице: ${rowCount}`;
+    });
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const rowCount = document.querySelector("#dormitory-table tbody").rows.length;
+        document.getElementById("row-count").textContent = `Количество записей в таблице: ${rowCount}`;
+    });
+</script>
 </body>
 
 </html>

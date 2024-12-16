@@ -1,20 +1,13 @@
 package com.example.domitory.services;
 
 import com.example.domitory.entity.Dormitory;
-import com.example.domitory.entity.Students;
 import com.example.domitory.repos.DormitoryRepository;
-import groovy.lang.GString;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class DormitoryService {

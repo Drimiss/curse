@@ -1,7 +1,9 @@
 package com.example.domitory.services;
 
+import com.example.domitory.entity.Dormitory;
 import com.example.domitory.entity.Roles;
 import com.example.domitory.entity.Students;
+import com.example.domitory.repos.DormitoryRepository;
 import com.example.domitory.repos.RoleRepository;
 import com.example.domitory.repos.StudentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ public class StudentsService {
     @Autowired
     private StudentsRepository repository;
 
+
     public List<Students> listAllSt() {
         return repository.findAll();
     }
@@ -25,17 +28,13 @@ public class StudentsService {
         return repository.findAllStudentsNotInDormitory();
     }
 
-    public void saveStudent(String fullName, String birthDate, String gender, String faculty, int course) {
-        repository.saveStudent(fullName, birthDate, gender, faculty, course);
-    }
 
-    public void deleteStudent(Long id) {
-        repository.deleteStudentById(id);
-
+    public void deleteStudentById(Long id) {
+        repository.deleteById(id);
     }
 
     public Students getStudentById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid student ID: " + id));
+        return repository.findById(id).orElseThrow();
     }
 
     public void saveStudent(Students student) {

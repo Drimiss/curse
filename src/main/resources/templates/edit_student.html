@@ -5,7 +5,7 @@
     <title>Редактирование студента</title>
     <style>
         body {
-            background: rgb(94, 167, 111); /* fallback for old browsers */
+            background: rgb(94, 167, 111);
             background: rgb(94, 167, 111);
             background: linear-gradient(90deg, rgb(94, 167, 111) 0%, rgb(235, 142, 172) 50%);
             font-family: "Roboto", sans-serif;
@@ -21,10 +21,9 @@
             flex-wrap: wrap;
         }
 
-        /* Стили для полей ввода и кнопки */
         label {
             display: inline-block;
-            min-width: 100px; /* Минимальная ширина для выравнивания */
+            min-width: 100px;
         }
 
         input {
@@ -62,8 +61,9 @@
         <label>Факультет:</label>
         <input type="text" th:field="*{faculty}" required />
     </div>
-    <div><button type="submit" class="custom-btn-danger">Сохранить</button>
-    <a th:href="@{/students}"><button type="button" class="custom-btn-danger">Выйти</button></a></div>
+    <div><a th:href="@{/students}"><button type="button" class="custom-btn-danger">Выйти</button></a>
+        <button type="submit" class="custom-btn-danger">Сохранить</button>
+    </div>
 </form>
 </body>
 </html>

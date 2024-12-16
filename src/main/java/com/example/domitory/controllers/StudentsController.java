@@ -5,7 +5,6 @@ import com.example.domitory.services.StudentsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,38 +31,34 @@ public class StudentsController {
 
 
     @PostMapping("/students/upload-json")
-    public Object uploadJsonFile(@RequestParam("file") MultipartFile file) {
+    public String uploadJsonFile(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty() || !file.getOriginalFilename().endsWith(".json")) {
             return "error";
         }
 
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            List<Students> students = objectMapper.readValue(file.getInputStream(),
-                    objectMapper.getTypeFactory().constructCollectionType(List.class, Students.class));
+            List<Students> students = objectMapper.readValue(
+                    file.getInputStream(),
+                    objectMapper.getTypeFactory().constructCollectionType(List.class, Students.class)
+            );
 
-            // Сохранение данных в базу
             for (Students student : students) {
-                service.saveStudent(
-                        student.getFullName(),
-                        student.getBirthDate(),
-                        student.getGender(),
-                        student.getFaculty(),
-                        student.getCourse()
-                );
+                service.saveStudent(student);
             }
 
-                     return "redirect:/students";
+            return "redirect:/students";
 
         } catch (IOException e) {
             e.printStackTrace();
             return "error";
         }
     }
-    @GetMapping("/students/delete/{id}")
+
+    @GetMapping("/delete/{id}")
     public String deleteStudent(@PathVariable("id") Long id) {
-        service.deleteStudent(id);
-        return "redirect:/students"; // Перенаправление на список студентов после удаления
+        service.deleteStudentById(id);
+        return "redirect:/students";
     }
 
     @GetMapping("/students/edit_student/{id}")
@@ -75,20 +70,16 @@ public class StudentsController {
 
     @PostMapping("/students/edit_student/{id}")
     public String updateStudent(@PathVariable("id") Long id, HttpServletRequest request) {
-        // Получаем текущего студента
         Students existingStudent = service.getStudentById(id);
 
-        // Извлекаем параметры из запроса
         String fullName = request.getParameter("fullName");
         String course = request.getParameter("course");
         String faculty = request.getParameter("faculty");
 
-        // Обновляем только изменяемые поля
         existingStudent.setFullName(fullName);
         existingStudent.setCourse(Integer.parseInt(course));
         existingStudent.setFaculty(faculty);
 
-        // Сохраняем изменения
         service.saveStudent(existingStudent);
 
         return "redirect:/students";
