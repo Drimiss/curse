@@ -4,145 +4,74 @@
     <meta charset="UTF-8"/>
     <title>Список студентов</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        document.addEventListener('click', function (e) {
+            try {
+                function findElementRecursive(element, tag) {
+                    return element.nodeName === tag ? element :
+                        findElementRecursive(element.parentNode, tag)
+                }
 
+                var descending_th_class = ' dir-d '
+                var ascending_th_class = ' dir-u '
+                var ascending_table_sort_class = 'asc'
+                var regex_dir = / dir-(u|d) /
+                var regex_table = /\bsortable\b/
+                var alt_sort = e.shiftKey || e.altKey
+                var element = findElementRecursive(e.target, 'TH')
+                var tr = findElementRecursive(element, 'TR')
+                var table = findElementRecursive(tr, 'TABLE')
 
-    <style>
-        body {
-            background: rgb(94, 167, 111); /* fallback for old browsers */
-            background: rgb(94, 167, 111);
-            background: linear-gradient(90deg, rgb(131, 196, 146) 0%, rgb(235, 142, 172) 50%);
-            font-family: "Roboto", sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        a {
+                function reClassify(element, dir) {
+                    element.className = element.className.replace(regex_dir, '') + dir
+                }
 
-            text-decoration:none ;
-        }
+                function getValue(element) {
+                    return (
+                        (alt_sort && element.getAttribute('data-sort-alt')) ||
+                        element.getAttribute('data-sort') || element.innerText
+                    )
+                }
 
-        .logout-container {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-        .btn {
-            padding: 5px 5px 5px 5px;
-            border-radius: 10px;
-            border: none;
-            background-color: rgb(58, 126, 74);
-            color: rgb(255, 255, 255);
-            margin: 5px 0;
-        }
+                if (regex_table.test(table.className)) {
+                    var column_index
+                    var nodes = tr.cells
+                    for (var i = 0; i < nodes.length; i++) {
+                        if (nodes[i] === element) {
+                            column_index = element.getAttribute('data-sort-col') || i
+                        } else {
+                            reClassify(nodes[i], '')
+                        }
+                    }
+                    var dir = descending_th_class
+                    if (
+                        element.className.indexOf(descending_th_class) !== -1 ||
+                        (table.className.indexOf(ascending_table_sort_class) !== -1 &&
+                            element.className.indexOf(ascending_th_class) == -1)
+                    ) {
+                        dir = ascending_th_class
+                    }
+                    reClassify(element, dir)
+                    var org_tbody = table.tBodies[0]
+                    var rows = [].slice.call(org_tbody.rows, 0)
+                    var reverse = dir === ascending_th_class
+                    rows.sort(function (a, b) {
+                        var x = getValue((reverse ? a : b).cells[column_index])
+                        var y = getValue((reverse ? b : a).cells[column_index])
+                        return isNaN(x - y) ? x.localeCompare(y) : x - y
+                    })
+                    var clone_tbody = org_tbody.cloneNode()
+                    while (rows.length) {
+                        clone_tbody.appendChild(rows.splice(0, 1)[0])
+                    }
+                    table.replaceChild(clone_tbody, org_tbody)
+                }
+            } catch (error) {
+            }
+        });
+    </script>
 
-        .btn:hover {
-            background-color: #d5cc55;
-            color: black;
-            transition-duration: 0.3s;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 100%;
-            margin-top: 0px;
-            margin-bottom: 0px;
-            justify-content: space-around;
-        }
-
-        .table {
-            border-collapse: collapse;
-            width: 89%;
-            text-align: center;
-            table-layout: fixed;
-        }
-
-        .table thead th {
-            font-weight: bold;
-            text-align: center;
-            border: none;
-            padding: 10px 15px;
-            background: #eeeeee;
-            font-size: 14px;
-        }
-        .table thead tr th:first-child {
-            border-radius: 8px 0 0 8px;
-        }
-        .table thead tr th:last-child {
-            border-radius: 0 8px 8px 0;
-        }
-        .table tbody td {
-            text-align: center;
-            border: none;
-            padding: 10px 15px;
-            font-size: 14px;
-            vertical-align: middle;
-        }
-        .table tbody tr:nth-child(even){
-            background: #f3f3f3;
-        }
-        .table tbody tr td:first-child {
-            border-radius: 8px 0 0 8px;
-        }
-        .table tbody tr td:last-child {
-            border-radius: 0 8px 8px 0;
-        }
-
-        .btn-warning {
-            margin-left: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        nav ul {
-              list-style: none;
-              margin: 0;
-              padding: 0;
-              display: flex;
-          }
-
-        nav ul li {
-            margin: 0 10px;
-        }
-        .custom-btn-danger {
-            text-decoration: none;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 10px;
-            background-color: rgb(58, 126, 74);
-            color: rgb(255, 255, 255);
-            margin: 5px 0;
-        }
-        .custom-btn-danger:hover {
-            background-color: #d5cc55;
-            border-radius: 10px;
-            transition-duration: 0.3s;
-        }
-
-        .input-confirm{
-
-            display: flex;
-            width: 89%;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            margin-top: 10px;
-
-        }
-
-        .btn-primary{
-            height: 40px;
-
-        }
-
-
-    </style>
 </head>
 <body>
 <header>
@@ -183,7 +112,7 @@
     </div>
 </div>
 <div class="container">
-    <table class="table" id="1">
+    <table class="sortable-table" id="1">
         <thead>
         <tr>
             <th>ID</th>
@@ -206,7 +135,7 @@
             <td>
                 <!-- Кнопка "Редактировать" отображается только если студента нет в общежитии -->
                 <a th:href="@{'/students/edit_student/' + ${student.id}}">
-                    <button type="button" class="btn btn-info">редактировать</button>
+                    <button type="button" class="btn btn-info">Редактировать</button>
                 </a>
 
                 <a th:href="@{'/delete/' + ${student.id}}">
