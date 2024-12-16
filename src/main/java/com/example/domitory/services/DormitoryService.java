@@ -42,7 +42,7 @@ public class DormitoryService {
         repository.deleteByStudentId(studentId);
         repository.insertNewRoomAssignment(newRoomId, studentId);
         repository.updateRoomGender(gender, newRoomId);
-        repository.need();
+        repository.resetRoomGenderForEmptyRooms();
     }
 
     public List<Map<String, Object>> getAvailableRooms(Long studentId) {

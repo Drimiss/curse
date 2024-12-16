@@ -29,5 +29,9 @@ public interface StudentsRepository extends JpaRepository<Students, Long> {
     @Query("DELETE FROM Students s WHERE s.id = :id")
     void deleteStudentById(Long id);
 
+//    @Modifying
+//    @Transactional
+//    @Query("DELETE FROM Students s WHERE s.id = :id")
+//    void editStudentById(Long id);
 }
 

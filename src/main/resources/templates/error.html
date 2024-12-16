@@ -6,10 +6,20 @@
     <title>Error</title>
     <style>
         body {
+            background: rgb(94, 167, 111); /* fallback for old browsers */
+            background: rgb(94, 167, 111);
+            background: linear-gradient(90deg, rgb(94, 167, 111) 0%, rgb(235, 142, 172) 50%);
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+
             display: flex;
             flex-direction: column;
-            background-color: rgb(236, 143, 173);
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: center;
             align-items: center;
+
         }
         .btn {
             padding: 20px;

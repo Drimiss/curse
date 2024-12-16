@@ -71,7 +71,8 @@ public interface DormitoryRepository extends JpaRepository<Dormitory, Long> {
     @Transactional
     @Query("UPDATE Rooms r SET r.gender = NULL WHERE r.id NOT IN (" +
             "SELECT d.room.id FROM Dormitory d GROUP BY d.room.id HAVING COUNT(d) > 0)")
-    void need();
+    void resetRoomGenderForEmptyRooms();
+
 
 
 }

@@ -304,7 +304,7 @@
                                 data-bs-target="#roomModal"
                                 th:attr="data-def-id=${dormitory.student.id}, data-def-gender=${dormitory.student.gender}"
                                 onclick="loadAvailableRooms(this)">
-                                Редактировать
+                                переселить
                             </button>
                             <a th:href="@{'/delete/' + ${dormitory.id}}">
                                 <button type="button" class="btn btn-danger">Выселить</button>

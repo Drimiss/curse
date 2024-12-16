@@ -1,125 +1,69 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>Редактирование данных</title>
+    <meta charset="UTF-8"/>
+    <title>Редактирование студента</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            background-color: rgb(236, 143, 173);
-            align-items: center;
+            background: rgb(94, 167, 111); /* fallback for old browsers */
+            background: rgb(94, 167, 111);
+            background: linear-gradient(90deg, rgb(94, 167, 111) 0%, rgb(235, 142, 172) 50%);
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        .btn {
-            padding: 5px 5px 5px 5px;
-            border-radius: 10px;
-            border: none;
-            background-color: rgb(112, 186, 200);
-            color: rgb(14, 10, 10);
-            margin: 5px 0;
+        form {
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            align-content: center;
+            align-items: flex-end;
+            flex-wrap: wrap;
         }
 
-        .btn:hover {
-            background-color: #d5cc55;
-            color: black;
-            transition-duration: 0.3s;
+        /* Стили для полей ввода и кнопки */
+        label {
+            display: inline-block;
+            min-width: 100px; /* Минимальная ширина для выравнивания */
         }
+
+        input {
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 5px 15px;
+            font-size: 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
     </style>
 </head>
 <body>
-<div class="container">
-    <blockquote class="blockquote">
-        <h1>Редактирование данных груза</h1>
-    </blockquote>
-    <div class="rows">
-        <div class="content">
-            <form
-                    action="#"
-                    th:action="@{/save}"
-                    th:object="${cargo}"
-                    method="post"
-            >
-                <table>
-                    <tr>
-                        <td>* ID не редактируется</td>
-                    </tr>
-                    <tr>
-                        <td>Название:</td>
-                        <td>
-                            <input
-                                    placeholder="Название"
-                                    type="text"
-                                    th:field="*{name}"
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Содержимое:</td>
-                        <td>
-                            <input
-                                    placeholder="Содержимое"
-                                    type="text"
-                                    th:field="*{content}"
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Город отправки:</td>
-                        <td>
-                            <input
-                                    placeholder="Город отправки"
-                                    type="text"
-                                    th:field="*{sending_city}"
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Дата отправки:</td>
-                        <td>
-                            <input
-                                    placeholder="Дата отправки"
-                                    type="text"
-                                    th:field="*{sending_date}"
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Город прибытия:</td>
-                        <td>
-                            <input
-                                    placeholder="Город прибытия"
-                                    type="text"
-                                    th:field="*{arrival_city}"
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Дата прибытия:</td>
-                        <td>
-                            <input
-                                    placeholder="Дата прибытия"
-                                    type="text"
-                                    th:field="*{arrival_date}"
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <button
-                                    type="submit"
-                                    class="btn btn-primary"
-                                    data-toggle="button"
-                                    aria-pressed="false"
-                                    autocomplete="off"
-                            >
-                                Отправить
-                            </button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
+<h2>Редактирование студента</h2>
+<form th:action="@{'/students/edit_student/' + ${student.id}}" th:object="${student}" method="post">
+    <div>
+        <label>Полное имя:</label>
+        <input type="text" th:field="*{fullName}" required />
     </div>
-</div>
+    <div>
+        <label>Курс:</label>
+        <input type="number" th:field="*{course}" required />
+    </div>
+    <div>
+        <label>Факультет:</label>
+        <input type="text" th:field="*{faculty}" required />
+    </div>
+    <div><button type="submit" class="custom-btn-danger">Сохранить</button>
+    <a th:href="@{/students}"><button type="button" class="custom-btn-danger">Выйти</button></a></div>
+</form>
 </body>
 </html>

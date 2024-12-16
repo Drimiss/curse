@@ -16,7 +16,7 @@ public class Rooms {
 
     @Column(name = "quantity")
     private Integer quantity;
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender", nullable = true)
     private String gender;
 
     public Rooms() {}
