@@ -220,6 +220,7 @@ img {
     height: 35%; /* Высота изображения на 100% */
     object-fit: cover;
     display: flex;
+    margin-top: 110px;
 }
 
 
