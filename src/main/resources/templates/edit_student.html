@@ -11,7 +11,7 @@
             background: rgb(94, 167, 111);
             background: rgb(94, 167, 111);
             background: linear-gradient(90deg, rgb(94, 167, 111) 0%, rgb(235, 142, 172) 50%);
-            font-family: "Roboto", sans-serif;
+            font-family: "Roboto", sans -serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -22,6 +22,15 @@
             align-content: center;
             align-items: flex-end;
             flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         label {
@@ -69,7 +78,11 @@
 
 </head>
 <body>
-<h2>Редактирование студента</h2>
+<header>
+    <h1>Редактирование студента</h1>
+
+</header>
+
 <form th:action="@{'/students/edit_student/' + ${student.id}}" th:object="${student}" method="post">
     <div>
         <label>Полное имя:</label>

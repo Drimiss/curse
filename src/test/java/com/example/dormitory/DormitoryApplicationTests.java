@@ -1,10 +1,10 @@
-package com.example.online_school_is;
+package com.example.dormitory;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OnlineSchoolIsApplicationTests {
+class DormitoryApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>Статистика общежитий</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+<header>
+    <h1>Система общежитий</h1>
+    <nav>
+        <ul>
+            <li>
+                <a href="/about">
+                    <button type="button" class="custom-btn-danger">О себе</button>
+                </a>
+            </li>
+            <li>
+                <a href="/dormitories">
+                    <button type="button" class="custom-btn-danger">Общежитие</button>
+                </a>
+            </li>
+            <li>
+                <a href="/students">
+                    <button type="button" class="custom-btn-danger">Студенты</button>
+                </a>
+            </li>
+            <li>
+                <a href="/logout">
+                    <button type="button" class="custom-btn-danger">Выйти</button>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="charts-container">
+    <div>
+        <canvas id="courseChart" class="chart"></canvas>
+        <h1 class="name-chart">Студенты по курсам</h1>
+    </div>
+    <div>
+        <canvas id="genderChart" class="chart"></canvas>
+        <h1 class="name-chart">Студенты по полу</h1>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    // Данные из модели Thymeleaf
+    const courseData = /*[[${courseData}]]*/ {};
+    const genderData = /*[[${genderData}]]*/ {};
+
+    // Преобразование данных для диаграммы по курсам
+    const courseLabels = Object.keys(courseData);
+    const courseValues = Object.values(courseData);
+
+    // Преобразование данных для диаграммы по полу
+    const genderLabels = Object.keys(genderData);
+    const genderValues = Object.values(genderData);
+
+    // Настройка диаграммы по курсам
+    new Chart(document.getElementById('courseChart'), {
+        type: 'pie',
+        data: {
+            labels: courseLabels,
+            datasets: [{
+                data: courseValues,
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: false,
+                }
+            }
+        }
+    });
+
+    // Настройка диаграммы по полу
+    new Chart(document.getElementById('genderChart'), {
+        type: 'pie',
+        data: {
+            labels: genderLabels,
+            datasets: [{
+                data: genderValues,
+                backgroundColor: ['#FF6384', '#36A2EB'],
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: false,
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

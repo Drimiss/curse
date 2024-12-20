@@ -58,7 +58,7 @@ public class AuthController {
 
         // Установка роли
         Roles userRole = roleRepository.findByName("ADMIN")
-                .orElseThrow(() -> new RuntimeException("Роль STUDENT не найдена"));
+                .orElseThrow(() -> new RuntimeException("Роль не найдена"));
         Set<Roles> roles = new HashSet<>();
         roles.add(userRole);
         user.setRoles(roles);
@@ -80,6 +80,7 @@ public class AuthController {
                 .contentType(MediaType.valueOf("text/html;charset=UTF-8"))
                 .body(htmlContent);
     }
+    
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody Users user) {
@@ -99,21 +100,6 @@ public class AuthController {
         return ResponseEntity.ok()
                 .contentType(MediaType.valueOf("text/html;charset=UTF-8"))
                 .body(htmlContent);
-    }
-
-    @RequestMapping("/index")
-    public String index(Model model) {
-        // Получаем объект аутентификации
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        // Проверяем, что пользователь аутентифицирован
-        if (authentication != null && authentication.isAuthenticated()
-                && !(authentication instanceof AnonymousAuthenticationToken)) {
-            return "index"; // Перенаправляем на страницу dashboard для аутентифицированных пользователей
-        }
-
-        // Если пользователь не аутентифицирован, отображаем главную страницу
-        return "login";
     }
 
 }

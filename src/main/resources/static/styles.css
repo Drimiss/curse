@@ -1,6 +1,5 @@
 
 body {
-    background: rgb(94, 167, 111); /* fallback for old browsers */
     background: rgb(94, 167, 111);
     background: linear-gradient(90deg, rgb(94, 167, 111) 0%, rgb(235, 142, 172) 50%);
     font-family: "Roboto", sans-serif;
@@ -250,27 +249,21 @@ a {
 
     text-decoration:none ;
 }
-.error-field{
 
+.charts-container {
     display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-content: center;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-
+    margin-top: 20px;
 }
-.btn-back{
 
-    font-size: 19px;
-    width: 210px;
-    height: 70px;
+.chart {
+    width: 600px;
+    height: 600px;
+}
 
-    padding: 5px 5px 5px 5px;
-    border-radius: 20px;
-    border: none;
-    background-color: rgb(58, 126, 74);
-    color: rgb(255, 255, 255);
-    margin: 5px 0;
-    text-decoration: none;
+.name-chart {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
 }

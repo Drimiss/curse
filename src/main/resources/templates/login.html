@@ -41,7 +41,7 @@
             width: 100%;
             border: 0;
             padding: 15px;
-            color: #8c8989;
+            color: #ffffff;
             font-size: 14px;
             cursor: pointer;
         }
@@ -117,8 +117,8 @@
         <form class="login-form" th:action="@{/auth/login}" method="post">
             <input type="text" placeholder="username" id="login_username" name="username" required/>
             <input type="password" placeholder="password" id="login_password" name="password" required/>
-            <button>login</button>
-            <p class="message">Not registered? <a href="register">Создать аккаунт</a></p>
+            <button>Войти</button>
+            <p class="message">Нет аккаута? <a href="register">Создайте аккаунт</a></p>
         </form>
     </div>
 </div>

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -39,7 +39,7 @@ public class DormitoryController {
         if (keyword != null && !keyword.isEmpty()) {
             dormitories = service.searchDormitoriesByStudentName(keyword);
         } else {
-            dormitories = service.listAll(); // Загрузка с JOIN FETCH
+            dormitories = service.listAll();
         }
 
         model.addAttribute("dormitories", dormitories);
@@ -47,7 +47,6 @@ public class DormitoryController {
 
         return "dormitories";
     }
-
 
 
     @GetMapping("/dormitories/move/{id}")
@@ -66,10 +65,12 @@ public class DormitoryController {
             return "error";
         }
     }
+
     @RequestMapping("/about")
     public String about() {
         return "about";
     }
+
     @GetMapping("/dormitory/{studentId}/availableRooms")
     public ResponseEntity<List<Map<String, Object>>> getAvailableRooms(@PathVariable Long studentId) {
         List<Map<String, Object>> availableRooms = service.getAvailableRooms(studentId);
@@ -82,14 +83,34 @@ public class DormitoryController {
         Long roomId = Long.valueOf(requestData.get("roomId").toString());
         String gender = (String) requestData.get("gender");  // Получаем gender
 
-        // Передаем все параметры в сервис
-        service.moveStudentToNewRoom(studentId, roomId,gender);
+        service.moveStudentToNewRoom(studentId, roomId, gender);
 
-        // Возвращаем правильный JSON объект
         Map<String, String> response = new HashMap<>();
         response.put("message", "Студент успешно перемещен!");
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/dashboard")
+    public String getDashboardData(Model model) {
+        List<Dormitory> dormitories = service.listAll();
+
+        Map<Integer, Long> courseData = dormitories.stream()
+                .collect(Collectors.groupingBy(
+                        dormitory -> dormitory.getStudent().getCourse(),
+                        Collectors.counting()
+                ));
+
+        Map<String, Long> genderData = dormitories.stream()
+                .collect(Collectors.groupingBy(
+                        dormitory -> dormitory.getStudent().getGender(),
+                        Collectors.counting()
+                ));
+
+        model.addAttribute("courseData", courseData);
+        model.addAttribute("genderData", genderData);
+
+        return "dashboard";
     }
 
 }
