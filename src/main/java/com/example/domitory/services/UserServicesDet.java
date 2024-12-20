@@ -20,7 +20,6 @@ public class UserServicesDet implements UserDetailsService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден: " + username));
     }
-    // Метод для сохранения нового пользователя
     public void saveUser(Users user) {
         userRepository.save(user);
     }

@@ -11,10 +11,6 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<Users, Long> {
 
-    //нельзя показывать ПАРОЛИ А ВЫВОДЕ НА СТРАНИЦУ!!!!!!
-
-//    Optional<Users> getAll();
-
 
     Optional<Users> findByUsername(String username);
 

@@ -9,9 +9,9 @@ public class Dormitory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Добавлен каскад
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_room", referencedColumnName = "id")
-    private Rooms room; // Proper join to Rooms table
+    private Rooms room;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_student", referencedColumnName = "id")

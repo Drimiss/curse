@@ -50,7 +50,7 @@
 </div>
 
 <script th:inline="javascript">
-    // Данные из модели Thymeleaf
+
     const courseData = /*[[${courseData}]]*/ {};
     const genderData = /*[[${genderData}]]*/ {};
 
@@ -85,7 +85,6 @@
         }
     });
 
-    // Настройка диаграммы по полу
     new Chart(document.getElementById('genderChart'), {
         type: 'pie',
         data: {

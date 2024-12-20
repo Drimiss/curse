@@ -24,7 +24,7 @@ public class StudentsController {
 
     @GetMapping("/students")
     public String viewStudents(Model model) {
-        List<Students> students = service.listAllSt(); // Все студенты
+        List<Students> students = service.listAllSt();
         model.addAttribute("students", students);
         return "students";
     }
@@ -63,9 +63,9 @@ public class StudentsController {
 
     @GetMapping("/students/edit_student/{id}")
     public String showEditStudentForm(@PathVariable("id") Long id, Model model) {
-        Students student = service.getStudentById(id); // Получаем студента по ID
+        Students student = service.getStudentById(id);
         model.addAttribute("student", student);
-        return "/edit_student"; // Страница с формой редактирования
+        return "/edit_student";
     }
 
     @PostMapping("/students/edit_student/{id}")

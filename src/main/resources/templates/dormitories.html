@@ -195,19 +195,13 @@
         var studentId = button.dataset.defId;
         var defGender = button.dataset.defGender;
 
-        // Set data to modal
         const roomSelect = document.getElementById("roomSelect");
-        roomSelect.dataset.studentId = studentId;   // Store studentId
-        roomSelect.dataset.defGender = defGender;   // Store gender
+        roomSelect.dataset.studentId = studentId;
+        roomSelect.dataset.defGender = defGender;
 
-        // Выводим данные для проверки
         console.log('Def ID:', studentId);
         console.log('Def Gender:', defGender);
 
-        // Здесь можно выполнить дальнейшие действия с данными
-        // Например, загрузить доступные комнаты на основе этих данных
-
-        // Выводим данные для проверки
 
         fetch(`/dormitory/${studentId}/availableRooms`)
             .then(response => {
@@ -217,12 +211,11 @@
                 return response.json();
             })
             .then(rooms => {
-                console.log(rooms);  // Вывод данных
+                console.log(rooms);
                 const roomSelect = document.getElementById("roomSelect");
-                roomSelect.innerHTML = ''; // Очистка списка
+                roomSelect.innerHTML = '';
 
                 rooms.forEach(room => {
-                    console.log(room); // Это поможет проверить, что именно приходит на каждой итерации
                     const option = document.createElement("option");
                     option.value = room.id;
                     option.textContent = `Комната ${room.nub_room}`;
@@ -240,8 +233,7 @@
         fetch(`/dormitories/move/${id}`, {method: 'GET'})
             .then(response => {
                 if (response.ok) {
-                    // Обновите таблицу или перезагрузите содержимое страницы
-                    location.reload(); // Перезагрузка страницы
+                    location.reload();
                 } else {
                     alert('Ошибка при выселении студента!');
                 }
@@ -249,7 +241,6 @@
             .catch(error => console.error('Ошибка:', error));
     }
 
-    // Сохранение комнаты
     function saveRoomSelection() {
         const roomId = document.getElementById("roomSelect").value; // Получаем значение из выпадающего списка
         const studentId = document.getElementById("roomSelect").dataset.studentId;  // Получаем studentId
@@ -261,17 +252,17 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({roomId: roomId, studentId: studentId, gender: defGender})  // Передаем правильные данные
+                body: JSON.stringify({roomId: roomId, studentId: studentId, gender: defGender})
             })
                 .then(response => {
                     if (response.ok) {
-                        return response.json();  // Ожидаем JSON-ответ от сервера
+                        return response.json();
                     }
-                    throw new Error('Ошибка на сервере: ' + response.statusText);  // Обработка ошибок
+                    throw new Error('Ошибка на сервере: ' + response.statusText);
                 })
                 .then(data => {
                     if (data && data.message) {
-                        alert(data.message);  // Показываем сообщение из ответа
+                        alert(data.message);
                         window.location.reload();  // Перезагружаем страницу
                     } else {
                         console.error('Неверный формат ответа:', data);
@@ -292,11 +283,6 @@
         document.getElementById("row-count").textContent = `Количество записей в таблице: ${rowCount}`;
     });
 
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const rowCount = document.querySelector("#dormitory-table tbody").rows.length;
-        document.getElementById("row-count").textContent = `Количество записей в таблице: ${rowCount}`;
-    });
 </script>
 </body>
 

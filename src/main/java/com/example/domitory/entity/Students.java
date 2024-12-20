@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "students")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class Students {
     @Id

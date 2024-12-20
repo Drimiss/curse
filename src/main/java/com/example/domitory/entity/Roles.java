@@ -17,7 +17,6 @@ public class Roles implements GrantedAuthority {
     @ManyToMany(mappedBy = "roles")
     private Set<Users> users;
 
-    //-------конструкторы------
     public Roles() {}
 
     public Roles(String name) {
@@ -29,7 +28,6 @@ public class Roles implements GrantedAuthority {
         this.name = name;
     }
 
-    //-----getters & setters----
     public Long getId() { return id; }
 
     public void setId(Long id) { this.id = id; }

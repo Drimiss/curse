@@ -1,7 +1,5 @@
 package com.example.domitory.entity;
 
-import com.example.domitory.entity.Students;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,8 +7,7 @@ import jakarta.persistence.*;
 public class Rooms {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // Auto-generated primary key
-
+    private Integer id;
     @Column(name = "nub_room")
     private Integer nub_room;
 

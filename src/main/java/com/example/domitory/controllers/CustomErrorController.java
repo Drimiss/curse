@@ -11,12 +11,10 @@ public class CustomErrorController implements ErrorController {
 
     @RequestMapping("/error")
     public String handleError() {
-        // Return the name of a custom error page (e.g., "error.html")
         return "error";
     }
 
     public String getErrorPath() {
-        // This method is required to implement the interface
         return "/error";
     }
 }

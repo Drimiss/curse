@@ -25,8 +25,8 @@ public class Users implements UserDetails {
     )
     private Set<Roles> roles;
 
-    @Transient // Это поле не будет сохраняться в базе данных
-    private String secret; // Добавлено поле для хранения секретного слова
+    @Transient
+    private String secret;
 
     public Users() {}
 
